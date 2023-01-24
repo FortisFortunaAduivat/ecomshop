@@ -1,17 +1,18 @@
-// Header------------------------------------------------
-
-.header{
-  height: 100%
+.header {
+  height: 100%;
+  box-shadow: $shadow-1;
 }
-.ad{
+//AD---------------------------------------------------
+.ad {
   height: 54px;
   width: 100%;
   background-image: url("../../public/images/ad.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: 50% 50%;
 }
 
-//TOP------------------------------------------------------
+//TOP---------------------------------------------------
 .top {
   background: #f8f8f8;
   border-top: 1px solid #eee;
