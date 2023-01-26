@@ -2,14 +2,21 @@ import NextAuth from 'next-auth'
 import AppleProvider from 'next-auth/providers/apple'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
-import PagesManifestPlugin from 'next/dist/build/webpack/plugins/pages-manifest-plugin'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
-import clientPromise from './lib/mongodb.ts'
+import clientPromise from './lib/mongodb.js'
+import GitHubProvider from 'next-auth/providers/github'
+import Auth0Provider from "next-auth/providers/auth0";
 
 export default NextAuth({
-  adapter:MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(clientPromise),
+  // OAuth authentication providers...
+
   providers: [
-    // OAuth authentication providers...
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET
+    }),
+
     AppleProvider({
       clientId: process.env.APPLE_ID,
       clientSecret: process.env.APPLE_SECRET
@@ -21,14 +28,19 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET
+    }),
+    Auth0Provider({
+      clientId: process.env.AUTH0_CLIENT_ID,
+      clientSecret: process.env.AUTH0_CLIENT_SECRET,
+      issuer: process.env.AUTH0_ISSUER
     })
   ],
   // signin pages
-pages:{
-  signIn:"/signin"
-},
-session:{
-  strategy:"jwt"
-},
-secret:process.env.JWT_SECRET,
+  pages: {
+    // signIn: '/signin'
+  },
+  session: {
+    strategy: 'jwt'
+  },
+  secret: process.env.JWT_SECRET
 })
