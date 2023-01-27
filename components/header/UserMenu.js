@@ -20,7 +20,8 @@ export default function UserMenu ({ session }) {
           />
           <div className={styles.col}>
             <span>Welcome back</span>
-            <h3>{session.user.image}</h3>
+            <h3>{session.user.avatar}</h3>
+            <span>13thGhost</span>
             <span onClick={()=>signOut()}>SignOut</span>
           </div>
         </div>
