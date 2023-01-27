@@ -7,7 +7,7 @@ import Head from 'next/head'
 import { SessionProvider } from "next-auth/react"
 
 let persiStore = persistStore(store);
-export default function MyApp({ Component, pageProps: { session, ...pageProps }}) {
+function MyApp({ Component, pageProps: { session, ...pageProps }}) {
     return (
     <>
         <Head>
@@ -21,9 +21,9 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps }}
         <PersistGate loading={null} persistor={persiStore}>
             <Component {...pageProps} />
         </PersistGate>
-
     </Provider>
     </SessionProvider>
     </>
     )
 }
+export default MyApp;

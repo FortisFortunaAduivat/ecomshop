@@ -2,19 +2,27 @@ import NextAuth from 'next-auth'
 import AppleProvider from 'next-auth/providers/apple'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
-import clientPromise from './lib/mongodb.js'
-import GitHubProvider from 'next-auth/providers/github'
+import GitHubProvider from "next-auth/providers/github";
 import Auth0Provider from "next-auth/providers/auth0";
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
+import clientPromise from "./lib/mongodb"
+
+
+
 
 export default NextAuth({
-  adapter: MongoDBAdapter(clientPromise),
-  // OAuth authentication providers...
+  adapter: new MongoDBAdapter(clientPromise),
 
   providers: [
+    // OAuth authentication providers...
+    Auth0Provider({
+      clientId: process.env.AUTH0_CLIENT_ID,
+      clientSecret: process.env.AUTH0_CLIENT_SECRET,
+      issuer: process.env.AUTH0_ISSUER_BASE_URL
+    }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET
+      clientSecret: process.env.GITHUB_SECRET,
     }),
 
     AppleProvider({
@@ -29,18 +37,13 @@ export default NextAuth({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET
     }),
-    Auth0Provider({
-      clientId: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      issuer: process.env.AUTH0_ISSUER
-    })
   ],
   // signin pages
   pages: {
-    // signIn: '/signin'
+    // signIn: '/signin',
   },
   session: {
-    strategy: 'jwt'
+    strategy: 'jwt',
   },
-  secret: process.env.JWT_SECRET
+  secret: process.env.JWT_SECRET,
 })

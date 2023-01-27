@@ -15,7 +15,7 @@ export default function UserMenu ({ session }) {
        
           <img
             src={session.user.image}
-            alt=''
+            alt='13thGhost'
             className={styles.menu__img}
           />
           <div className={styles.col}>
