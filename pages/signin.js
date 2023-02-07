@@ -9,6 +9,7 @@ import * as Yup from 'yup'
 
 import LoginInput from '../components/inputs/loginInput/'
 import { useState } from 'react'
+import CircledIconBtn from '../components/button/circledIconBtn'
 
 // set the user information
 const intialvalues = {
@@ -24,10 +25,14 @@ export default function signin ({ country }) {
   const handleChange = e => {
     const { name, value } = e.target
     setUser({ ...user, [name]: value })
-    console.log(user)
-    const loginValidation = Yup.object({login_email:Yup.string().required("Email address is required").email("Please enter a valid Email address"), login_password:Yup.string().required("Password is required").password("Please enter a valid password")})
-}
-
+  }
+  console.log(user)
+  const loginValidation = Yup.object({
+    login_email: Yup.string()
+      .required('Email address is required.')
+      .email('Please enter a valid email address.'),
+    login_password: Yup.string().required('Please enter a password')
+  })
   return (
     <>
       <Header country='flag' />
@@ -50,8 +55,11 @@ export default function signin ({ country }) {
             <p>Get access to the best Ecommerce service</p>
 
             {/*Reinitialize the values of the user after logged in */}
-            <Formik enableReinitialize intialvalues={{ login_email, login_password }}
-            validationSchema={loginValidation}>
+            <Formik
+              enableReinitialize
+              intialvalues={{ login_email, login_password }}
+              validationSchema={loginValidation}
+            >
               {form => (
                 <Form>
                   <LoginInput
@@ -68,6 +76,10 @@ export default function signin ({ country }) {
                     placeholder='Password'
                     onChange={handleChange}
                   />
+                  <CircledIconBtn type='submit' text='Sing in' />
+                  <div className={styles.forgot}>
+                    <Link href="/forget">Forgot Password?</Link>
+                  </div>
                 </Form>
               )}
             </Formik>
@@ -78,4 +90,3 @@ export default function signin ({ country }) {
     </>
   )
 }
-

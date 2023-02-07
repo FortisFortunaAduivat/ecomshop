@@ -2,6 +2,7 @@ import { useField } from 'formik'
 import { BiUser } from 'react-icons/bi'
 import { IoKeyOutline } from 'react-icons/io5'
 import { SiMinutemailer } from 'react-icons/si'
+import { ErrorMessage} from "formik";
 import styles from './styles.module.scss'
 
 export default function LoginInput ({ icon, placeholder, ...props }) {
@@ -9,7 +10,13 @@ export default function LoginInput ({ icon, placeholder, ...props }) {
   const [field, meta] = useField(props)
   // create the icons of the input
   return (
-    <div className={styles.input}>
+
+    // meta.touched will create an alert when wrong data or no data are enter
+    <div
+      className={`${styles.input} ${
+        meta.touched && meta.error ? styles.error : ""
+      }`}
+    >
       {icon == 'user' ? (
         <BiUser />
       ) : icon == 'email' ? (
@@ -25,6 +32,12 @@ export default function LoginInput ({ icon, placeholder, ...props }) {
         {...field}
         {...props}
       />
+       {meta.touched && meta.error && (
+        <div className={styles.error__popup}>
+          <span></span>
+          <ErrorMessage name={field.name} />
+        </div>
+      )}
     </div>
   )
 }
