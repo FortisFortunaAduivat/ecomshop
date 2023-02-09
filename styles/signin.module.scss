@@ -47,15 +47,12 @@
     span {
       font-weight: 600;
       font-size: 14px;
-      padding-left: 10px;
+      //padding-left: 10px;
       a {
-        color: #f8f8f8;
+        color: $blue-color;
         cursor: pointer;
-        border-radius: 15px;
-        background-color: $blue-color;
-        justify-content: center;
-        padding: 2px;
-        margin: 3px;
+        border-bottom: 1px solid $blue-color;
+        padding-bottom: 5px;
       }
     }
   }
@@ -73,7 +70,6 @@
     }
     .forgot {
       color: #666;
-      margin-left: 19px;
       padding-top: 1rem;
       font-size: 14px;
       width: fit-content;
@@ -88,14 +84,14 @@
     margin-top: 1rem;
     .or {
       position: relative;
-      color: hsl(0, 0%, 40%);
+      color: #666;
       padding-left: 8rem;
       &:before,
       &:after {
         content: '';
         width: 130px;
         height: 1px;
-        background: hsla(0, 0%, 40%, 0.282);
+        background: #66666648;
         position: absolute;
         top: 50%;
       }
